@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+   build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - app-data:/app/data # For persistence (e.g., if backend writes files/DB)
+    environment:
+      - ENV=production # Add any env vars needed
+    depends_on: [] # Add if frontend calls backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend # If frontend needs backend (otherwise remove)
+
+volumes:
+  app-data: # Named volume for data persistence (local testing)
+
